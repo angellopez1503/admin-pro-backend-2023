@@ -7,19 +7,18 @@ const app = express()
 
 app.use(cors())
 
+//Lectura y parseo del body
+
+app.use(express.json())
+
 dbConnection()
 
 
 //Rutas
 
-app.get('/',(req,res)=>{
+app.use('/api/usuarios',require('./routes/usuarios'))
 
-    res.json({
-        ok:true,
-        msg:'Hola Mundo'
-    })
 
-})
 
 
 
