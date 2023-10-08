@@ -33,7 +33,7 @@ const UsuarioSchema = Schema({
 //Cambiar _id por uid
 //-----------------------------------------
 UsuarioSchema.method('toJSON',function(){
-  const { __V, _id, ...object} =  this.toObject()
+  const { __V, _id, password, ...object} =  this.toObject()
   object.uid = _id
   return object
 })
