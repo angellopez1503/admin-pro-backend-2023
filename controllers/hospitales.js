@@ -1,33 +1,57 @@
-const getHospitales = (req,res) => {
+const Hospital = require("../models/hospital")
+
+
+const getHospitales = async (req, res) => {
+
+    const hospitales = await Hospital.find()
+                                .populate('usuario','name email img')
 
     res.json({
-        ok:true,
-        msg:'getHospitales'
+        ok: true,
+        hospitales
     })
 }
 
-const crearHospital = (req,res) => {
+const crearHospital = async (req, res) => {
+
+    const uid = req.uid
+    const hospital = new Hospital({
+        usuario: uid,
+        ...req.body
+    })
+
+    try {
+        const hospitalDB = await hospital.save()
+        res.json({
+            ok: true,
+            hospital: hospitalDB
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+
+    }
+
+}
+
+const actualizarHospital = (req, res) => {
 
     res.json({
-        ok:true,
-        msg:'crearHospital'
+        ok: true,
+        msg: 'actualizarHospital'
     })
 }
 
-const actualizarHospital = (req,res) => {
+
+const borrarHospital = (req, res) => {
 
     res.json({
-        ok:true,
-        msg:'actualizarHospital'
-    })
-}
-
-
-const borrarHospital = (req,res) => {
-
-    res.json({
-        ok:true,
-        msg:'borrarHospital'
+        ok: true,
+        msg: 'borrarHospital'
     })
 }
 

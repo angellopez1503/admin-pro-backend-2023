@@ -15,7 +15,11 @@ const { getHospitales,crearHospital,actualizarHospital,borrarHospital } = requir
 const router = Router()
 
 router.get('/',getHospitales)
-router.post('/',crearHospital)
+router.post('/',[
+    validarJWT,
+    check('name','El nombre del hospital es necesario').not().isEmpty(),
+    validarCampos
+],crearHospital)
 router.put('/:id',actualizarHospital)
 router.delete('/:id',borrarHospital)
 
